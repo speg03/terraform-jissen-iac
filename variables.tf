@@ -23,3 +23,21 @@ variable "env" {
     error_message = "The environment identifier must be one of the following: dev, stg, prod."
   }
 }
+
+variable "vpc_additional_tags" {
+  description = "VPCに付与したい追加タグ"
+  type        = map(string)
+  default     = {}
+
+  validation {
+    condition = (
+      length(
+        setintersection(
+          keys(var.vpc_additional_tags),
+          ["Name", "Env"]
+        )
+      ) == 0
+    )
+    error_message = "Key names, Name and Env is reserved. Not allowed to use them."
+  }
+}
