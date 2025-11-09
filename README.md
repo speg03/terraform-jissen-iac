@@ -12,7 +12,16 @@ $ terraform apply
 ## dev環境の構築
 
 ```console
+$ terraform workspace new dev
+```
+
+すでにdevワークスペースを作成している場合
+```console
+$ terraform workspace select dev
+```
+
+```console
 $ terraform init -backend-config=backend/backend.tfvars
-$ terraform plan -var-file=env/dev.tfvars
-$ terraform apply -var-file=env/dev.tfvars
+$ terraform plan
+$ terraform apply
 ```
