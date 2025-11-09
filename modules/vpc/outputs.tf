@@ -5,5 +5,5 @@ output "vpc_id" {
 
 output "vpc_name" {
   description = "作成したVPCの名前です"
-  value       = aws_vpc.vpc.tags["Name"]
+  value       = aws_vpc.vpc.tags_all["Name"]
 }
