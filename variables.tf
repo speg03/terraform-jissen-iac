@@ -8,3 +8,8 @@ variable "vpc_cidr_block" {
     error_message = "Specify VPC CIDR block with the CIDR format."
   }
 }
+
+variable "vpc_name" {
+  type        = string
+  description = "VPCの名前を指定します"
+}
