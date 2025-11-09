@@ -4,8 +4,8 @@ variable "vpc_cidr_block" {
   description = "VPCに割り当てるCIDRブロックを記述します"
 
   validation {
-    condition     = can(regex("^(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\/\\d{1,2})$", var.vpc_cidr_block))
-    error_message = "Specify VPC CIDR block with the CIDR format."
+    condition     = can(cidrhost(var.vpc_cidr_block, 0))
+    error_message = "Specify a valid IPv4 CIDR block (e.g., 10.0.0.0/16)."
   }
 }
 
