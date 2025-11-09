@@ -13,3 +13,13 @@ variable "vpc_name" {
   type        = string
   description = "VPCの名前を指定します"
 }
+
+variable "env" {
+  type        = string
+  description = "環境識別子 (dev, stg, prod)"
+
+  validation {
+    condition     = contains(["dev", "stg", "prod"], var.env)
+    error_message = "The environment identifier must be one of the following: dev, stg, prod."
+  }
+}

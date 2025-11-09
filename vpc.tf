@@ -3,6 +3,6 @@ resource "aws_vpc" "vpc" {
 
   tags = {
     Name = var.vpc_name
-    ENV  = "dev"
+    ENV  = var.env
   }
 }
