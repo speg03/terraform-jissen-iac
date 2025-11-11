@@ -21,7 +21,7 @@ $ terraform workspace select dev
 ```
 
 ```console
-$ terraform init -backend-config=backend/backend.tfvars
+$ terraform init
 $ terraform plan
 $ terraform apply
 ```
