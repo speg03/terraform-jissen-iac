@@ -89,3 +89,20 @@ variable "subnet_cidrs" {
     error_message = "Redundancy of public subnet and private subnet must be same."
   }
 }
+
+variable "subnet_additional_tags" {
+  description = "サブネットに付与したい追加タグ（Name, Env, AvailabilityZone, Scope 除く）"
+  type        = map(string)
+  default     = {}
+  validation {
+    condition = (
+      length(
+        setintersection(
+          keys(var.subnet_additional_tags),
+          ["Name", "Env", "AvailabilityZone", "Scope"]
+        )
+      ) == 0
+    )
+    error_message = "Key names, Name and Env, AvailabilityZone, Scope are reserved. Not allowed to use them."
+  }
+}
