@@ -41,3 +41,51 @@ variable "vpc_additional_tags" {
     error_message = "The key names 'Name' and 'Env' are reserved and cannot be used."
   }
 }
+
+variable "subnet_cidrs" {
+  description = "サブネットごとのCIDRリスト"
+  type = object({
+    public  = list(string)
+    private = list(string)
+  })
+
+  validation {
+    condition = (
+      length(
+        setintersection(
+          [for cidr in var.subnet_cidrs.public : can(cidrhost(cidr, 0)) ? cidr : null],
+          var.subnet_cidrs.public
+        )
+      ) == length(var.subnet_cidrs.public)
+    )
+    error_message = "Specify VPC Public Subnet CIDR block with the CIDR format."
+  }
+
+  validation {
+    condition = (
+      length(
+        setintersection(
+          [for cidr in var.subnet_cidrs.private : can(cidrhost(cidr, 0)) ? cidr : null],
+          var.subnet_cidrs.private
+        )
+      ) == length(var.subnet_cidrs.private)
+    )
+    error_message = "Specify VPC Private Subnet CIDR block with the CIDR format."
+  }
+
+  # 可用性のためのバリデーション（パブリック、プライベートで複数サブネットを作成）
+  validation {
+    condition     = length(var.subnet_cidrs.public) >= 2
+    error_message = "For availability, set more than or equal to 2 public subnet cidrs."
+  }
+  validation {
+    condition     = length(var.subnet_cidrs.private) >= 2
+    error_message = "For availability, set more than or equal to 2 private subnet cidrs."
+  }
+
+  # publicとprivateの配列長が同じことを確認するバリデーション
+  validation {
+    condition     = length(var.subnet_cidrs.public) == length(var.subnet_cidrs.private)
+    error_message = "Redundancy of public subnet and private subnet must be same."
+  }
+}
