@@ -106,3 +106,21 @@ variable "subnet_additional_tags" {
     error_message = "Key names, Name and Env, AvailabilityZone, Scope are reserved. Not allowed to use them."
   }
 }
+
+variable "igw_additional_tags" {
+  description = "インターネットゲートウェイに付与したい追加タグ（Name, Env, VpcId 除く）"
+  type        = map(string)
+  default     = {}
+
+  validation {
+    condition = (
+      length(
+        setintersection(
+          keys(var.igw_additional_tags),
+          ["Name", "Env", "VpcId"]
+        )
+      ) == 0
+    )
+    error_message = "Key names, Name and Env, VpcId are reserved. Not allowed to use them."
+  }
+}
