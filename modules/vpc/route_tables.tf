@@ -4,9 +4,9 @@ resource "aws_route_table" "public_route_tables" {
 
   vpc_id = aws_vpc.vpc.id
   tags = {
-    Name  = "${var.service_name}-${var.env}-${each.value.availability_zone}-public-route-table"
-    VpcId = aws_vpc.vpc.id
-    Scope = "public"
+    Name             = "${var.service_name}-${var.env}-${each.value.availability_zone}-public-route-table"
+    AvailabilityZone = each.value.availability_zone
+    Scope            = "public"
   }
 }
 
@@ -33,9 +33,9 @@ resource "aws_route_table" "private_route_tables" {
 
   vpc_id = aws_vpc.vpc.id
   tags = {
-    Name  = "${var.service_name}-${var.env}-${each.value.availability_zone}-private-route-table"
-    VpcId = aws_vpc.vpc.id
-    Scope = "private"
+    Name             = "${var.service_name}-${var.env}-${each.value.availability_zone}-private-route-table"
+    AvailabilityZone = each.value.availability_zone
+    Scope            = "private"
   }
 }
 
