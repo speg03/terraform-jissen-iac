@@ -1,10 +1,14 @@
+variable "excluded_az_names" {
+  description = "List of AZ names to exclude (e.g., obsolete or unavailable zones)."
+  type        = list(string)
+  default     = ["ap-northeast-1b"]
+}
+
 data "aws_availability_zones" "availability_zones" {
   state = "available"
 
-  # すでにobsoleteになっているap-northeast-1bを除外
-  exclude_names = [
-    "ap-northeast-1b"
-  ]
+  # 除外するアベイラビリティゾーン名（デフォルト: ap-northeast-1b、必要に応じて変更可能）
+  exclude_names = var.excluded_az_names
 }
 
 locals {
