@@ -103,7 +103,7 @@ variable "subnet_additional_tags" {
         )
       ) == 0
     )
-    error_message = "Key names, Name and Env, AvailabilityZone, Scope are reserved. Not allowed to use them."
+    error_message = "The key names 'Name', 'Env', 'AvailabilityZone', and 'Scope' are reserved and cannot be used."
   }
 }
 
