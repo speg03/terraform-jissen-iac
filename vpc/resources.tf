@@ -6,7 +6,7 @@ locals {
 }
 
 module "vpc" {
-  source         = "./modules/vpc"
+  source         = "../modules/vpc"
   service_name   = "sample"
   vpc_cidr_block = "10.0.0.0/16"
   subnet_cidrs = {
