@@ -121,6 +121,6 @@ variable "igw_additional_tags" {
         )
       ) == 0
     )
-    error_message = "Key names, Name and Env, VpcId are reserved. Not allowed to use them."
+    error_message = "The key names 'Name', 'Env', and 'VpcId' are reserved and cannot be used."
   }
 }
